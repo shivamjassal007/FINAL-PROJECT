@@ -1,0 +1,421 @@
+/*
+ * File:   project_code.c
+ * Author: SURINDER  MEHTOT
+ *
+ * Created on March 18, 2020, 5:18 PM
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "config.h"
+#include "function.h"
+unsigned int a;
+int main(void)
+{  
+   T1CON = 0x20;
+   TRISD = 0x00; //defined input pins for IR sensor
+   TRISB = 0x00;
+   PORTD = 0x00;   //port d as output
+   PORTC = 0x00;  //port c as output for LED
+   PORTB = 0x00;  //port b for output
+    Lcd_Init();
+         Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("Welcome!!!!");
+         __delay_ms(150);
+        Lcd_Clear();
+        Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("TO SMART CAR");
+        Lcd_Set_Cursor(2,1);
+        Lcd_Write_String("PARKING PROJECT");
+        __delay_ms(200);
+        Lcd_Clear();
+       
+       
+        if(SW1==1)
+        {
+            RD7=1;  //Red LED at entry gate
+        
+    //still remaining stepper motor pins.... do later
+      while(1)
+    {   //for entry vehicle when all spots are empty
+       while(SW2 == 0 && SW3 == 0 && SW4 == 0 && SW5 == 0)   //first sensor at entry when vehicle comes
+        {                                
+          RB0=1; //Green Led for parking spot 1
+          RB1=1; //Green Led for parking spot 2
+          RD5=1; //Green Led for parking spot 3
+          RD6=1; //Green Led for parking spot 4
+           //and all spots are empty
+         TRISC =0x08; //red led at entry turns on
+        //  RC4=1;
+        Lcd_Clear();
+          Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("Welcome!!!!");
+         __delay_ms(300);
+        Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("All Spot");
+         Lcd_Set_Cursor(2,1);
+        Lcd_Write_String("Available..wait!");
+       
+        __delay_ms(300);
+        Lcd_Clear();
+        Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("PARK AT SPOT 1");
+        //rotate stepper motor 90 degree clockwise ... code remaining
+        __delay_ms(300);
+         RB0=0;  //turns off as vehicle enters
+          RB1=0;
+          RD5=0;
+          RD6=0;//set green led high at parking spot1 to identify spot is full
+         Lcd_Clear();
+        //rotate stepper motor 90 degree anticlockwise to close door
+       
+        }
+       
+       while((SW2 == 0) && (SW3 == 0) && (SW4 == 0) && (SW5 == 1))   //first sensor at entry when vehicle comes
+        {  
+        //RC4 =1;   //red led at entry turns on
+       RB0=1; //Green Led for parking spot 1
+          RB1=1; //Green Led for parking spot 2
+          RD5=1; //Green Led for parking spot 3
+          RD6=0; //Green Led for parking spot 4
+         Lcd_Clear();
+         Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("3 SPOT FREE");
+        Lcd_Set_Cursor(2,1);
+        Lcd_Write_String("PARK AT SPOT 1");
+        __delay_ms(300);
+        RB0=0;
+        //rotate stepper motor 90 degree clockwise ... code remaining
+         //RC4=0;  //red turns off when vehicle enters
+         //RC1=1;   //set green led high at parking spot2 to identify spot is full
+         Lcd_Clear();
+        //rotate stepper motor 90 degree anticlockwise to close door
+        }
+       
+        while((SW2 == 0) && (SW3 == 0) && (SW4 == 1) && (SW5 == 0))   //first sensor at entry when vehicle comes
+        {  
+        //RC4 =1;   //red led at entry turns on
+       RB0=1; //Green Led for parking spot 1
+          RB1=1; //Green Led for parking spot 2
+          RD5=0; //Green Led for parking spot 3
+          RD6=1; //Green Led for parking spot 4
+         Lcd_Clear();
+         Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("3 SPOT FREE");
+        Lcd_Set_Cursor(2,1);
+        Lcd_Write_String("PARK AT SPOT 1");
+        __delay_ms(300);
+        RB0=0;
+        //rotate stepper motor 90 degree clockwise ... code remaining
+         //RC4=0;  //red turns off when vehicle enters
+         //RC1=1;   //set green led high at parking spot2 to identify spot is full
+         Lcd_Clear();
+        //rotate stepper motor 90 degree anticlockwise to close door
+        }
+       
+        while((SW2 == 0) && (SW3 == 0) && (SW4 == 1) && (SW5 == 1))   //first sensor at entry when vehicle comes
+        {  
+        RB0=1; //Green Led for parking spot 1
+          RB1=1; //Green Led for parking spot 2
+          RD5=0; //Green Led for parking spot 3
+          RD6=0; //Green Led for parking spot 4RC4 =1;   //red led at entry turns on
+       
+         Lcd_Clear();
+         Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("2 SPOT FREE");
+        Lcd_Set_Cursor(2,1);
+        Lcd_Write_String("PARK AT SPOT 1");
+        __delay_ms(300);
+        RB0=0;
+        //rotate stepper motor 90 degree clockwise ... code remaining
+        // RC4=0;  //red turns off when vehicle enters
+        // RC1=1;   //set green led high at parking spot2 to identify spot is full
+         Lcd_Clear();
+        //rotate stepper motor 90 degree anticlockwise to close door
+        }
+       
+        while((SW2 == 0) && (SW3 == 1) && (SW4 == 0) && (SW5 == 0))   //first sensor at entry when vehicle comes
+        {  
+        //RC4 =1;   //red led at entry turns on
+       RB0=1; //Green Led for parking spot 1
+          RB1=0; //Green Led for parking spot 2
+          RD5=1; //Green Led for parking spot 3
+          RD6=1; //Green Led for parking spot 4
+            
+         Lcd_Clear();
+         Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("3 SPOT FREE");
+        Lcd_Set_Cursor(2,1);
+        Lcd_Write_String("PARK AT SPOT 1");
+        __delay_ms(300);
+        RB0=0;
+        //rotate stepper motor 90 degree clockwise ... code remaining
+         //RC4=0;  //red turns off when vehicle enters
+         //RC1=1;   //set green led high at parking spot2 to identify spot is full
+         Lcd_Clear();
+        //rotate stepper motor 90 degree anticlockwise to close door
+        }
+       
+        while((SW2 == 0) && (SW3 == 1) && (SW4 == 0) && (SW5 == 1))   //first sensor at entry when vehicle comes
+        {  
+        //RC4 =1;   //red led at entry turns on
+       
+        RB0=1; //Green Led for parking spot 1
+          RB1=0; //Green Led for parking spot 2
+          RD5=1; //Green Led for parking spot 3
+          RD6=0; //Green Led for parking spot 4
+            
+         Lcd_Clear();
+         Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("2 SPOT FREE");
+        Lcd_Set_Cursor(2,1);
+        Lcd_Write_String("PARK AT SPOT 1");
+        __delay_ms(300);
+        //rotate stepper motor 90 degree clockwise ... code remaining
+        // RC4=0;  //red turns off when vehicle enters
+        // RC1=1;   //set green led high at parking spot2 to identify spot is full
+        RB0=0;
+        Lcd_Clear();
+        //rotate stepper motor 90 degree anticlockwise to close door
+        }
+       
+        while((SW2 == 0) && (SW3 == 1) && (SW4 == 1) && (SW5 == 0))   //first sensor at entry when vehicle comes
+        {  
+        //RC4 =1;   //red led at entry turns on
+       
+        RB0=1; //Green Led for parking spot 1
+          RB1=0; //Green Led for parking spot 2
+          RD5=0; //Green Led for parking spot 3
+          RD6=1; //Green Led for parking spot 4
+            Lcd_Clear();
+         Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("2 SPOT FREE");
+        Lcd_Set_Cursor(2,1);
+        Lcd_Write_String("PARK AT SPOT 1");
+        __delay_ms(300);
+        RB0=0;
+        //rotate stepper motor 90 degree clockwise ... code remaining
+        // RC4=0;  //red turns off when vehicle enters
+        // RC1=1;   //set green led high at parking spot2 to identify spot is full
+         Lcd_Clear();
+        //rotate stepper motor 90 degree anticlockwise to close door
+        }
+       
+        while((SW2 == 0) && (SW3 == 1) && (SW4 == 1) && (SW5 == 1))   //first sensor at entry when vehicle comes
+        {  
+        //RC4 =1;   //red led at entry turns on
+       RB0=1; //Green Led for parking spot 1
+          RB1=0; //Green Led for parking spot 2
+          RD5=0; //Green Led for parking spot 3
+          RD6=0; //Green Led for parking spot 4
+            
+         Lcd_Clear();
+         Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("1 SPOT FREE");
+        Lcd_Set_Cursor(2,1);
+        Lcd_Write_String("PARK AT SPOT 1");
+        __delay_ms(300);
+        RB0=0;
+        //rotate stepper motor 90 degree clockwise ... code remaining
+        // RC4=0;  //red turns off when vehicle enters
+        // RC1=1;   //set green led high at parking spot2 to identify spot is full
+         Lcd_Clear();
+        //rotate stepper motor 90 degree anticlockwise to close door
+        }
+       
+        while((SW2 == 1) && (SW3 == 0) && (SW4 == 0) && (SW5 == 0))   //first sensor at entry when vehicle comes
+        {  
+        //RC4 =1;   //red led at entry turns on
+       
+          RB0=0; //Green Led for parking spot 1
+          RB1=1; //Green Led for parking spot 2
+          RD5=1; //Green Led for parking spot 3
+          RD6=1; //Green Led for parking spot 4
+            
+         Lcd_Clear();
+         Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("3 SPOT FREE");
+        Lcd_Set_Cursor(2,1);
+        Lcd_Write_String("PARK AT SPOT 2");
+        __delay_ms(300);
+        RB1=0;
+        //rotate stepper motor 90 degree clockwise ... code remaining
+        // RC4=0;  //red turns off when vehicle enters
+        // RC1=1;   //set green led high at parking spot2 to identify spot is full
+         Lcd_Clear();
+        //rotate stepper motor 90 degree anticlockwise to close door
+        }
+       
+        while((SW2 == 1) && (SW3 == 0) && (SW4 == 0) && (SW5 == 1))   //first sensor at entry when vehicle comes
+        {  
+        //RC4 =1;   //red led at entry turns on
+       
+          RB0=0; //Green Led for parking spot 1
+          RB1=1; //Green Led for parking spot 2
+          RD5=1; //Green Led for parking spot 3
+          RD6=0; //Green Led for parking spot 4
+            
+         Lcd_Clear();
+         Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("2 SPOT FREE");
+        Lcd_Set_Cursor(2,1);
+        Lcd_Write_String("PARK AT SPOT 2");
+        __delay_ms(300);
+        RB1=0;
+        //rotate stepper motor 90 degree clockwise ... code remaining
+        // RC4=0;  //red turns off when vehicle enters
+        // RC1=1;   //set green led high at parking spot2 to identify spot is full
+         Lcd_Clear();
+        //rotate stepper motor 90 degree anticlockwise to close door
+        }
+       
+        while((SW2 == 1) && (SW3 == 0) && (SW4 == 1) && (SW5 == 0))   //first sensor at entry when vehicle comes
+        {  
+        //RC4 =1;   //red led at entry turns on
+       
+          RB0=0; //Green Led for parking spot 1
+          RB1=1; //Green Led for parking spot 2
+          RD5=0; //Green Led for parking spot 3
+          RD6=1; //Green Led for parking spot 4
+            
+         Lcd_Clear();
+         Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("2 SPOT FREE");
+        Lcd_Set_Cursor(2,1);
+        Lcd_Write_String("PARK AT SPOT 2");
+        __delay_ms(300);
+        RB1=0;
+        //rotate stepper motor 90 degree clockwise ... code remaining
+        // RC4=0;  //red turns off when vehicle enters
+        // RC1=1;   //set green led high at parking spot2 to identify spot is full
+         Lcd_Clear();
+        //rotate stepper motor 90 degree anticlockwise to close door
+        }
+       
+        while((SW2 == 1) && (SW3 == 0) && (SW4 == 1) && (SW5 == 1))   //first sensor at entry when vehicle comes
+        {  
+        //RC4 =1;   //red led at entry turns on
+       
+          RB0=0; //Green Led for parking spot 1
+          RB1=1; //Green Led for parking spot 2
+          RD5=0; //Green Led for parking spot 3
+          RD6=0; //Green Led for parking spot 4
+            
+         Lcd_Clear();
+         Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("1 SPOT FREE");
+        Lcd_Set_Cursor(2,1);
+        Lcd_Write_String("PARK AT SPOT 2");
+        __delay_ms(300);
+        RB1=0;
+        //rotate stepper motor 90 degree clockwise ... code remaining
+        // RC4=0;  //red turns off when vehicle enters
+        // RC1=1;   //set green led high at parking spot2 to identify spot is full
+         Lcd_Clear();
+        //rotate stepper motor 90 degree anticlockwise to close door
+        }
+       
+        while((SW2 == 1) && (SW3 == 1) && (SW4 == 0) && (SW5 == 0))   //first sensor at entry when vehicle comes
+        {  
+        //RC4 =1;   //red led at entry turns on
+       
+          RB0=0; //Green Led for parking spot 1
+          RB1=0; //Green Led for parking spot 2
+          RD5=1; //Green Led for parking spot 3
+          RD6=1; //Green Led for parking spot 4
+            
+         Lcd_Clear();
+         Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("2 SPOT FREE");
+        Lcd_Set_Cursor(2,1);
+        Lcd_Write_String("PARK AT SPOT 3");
+        __delay_ms(300);
+        RD5=0;
+        //rotate stepper motor 90 degree clockwise ... code remaining
+        // RC4=0;  //red turns off when vehicle enters
+        // RC1=1;   //set green led high at parking spot2 to identify spot is full
+         Lcd_Clear();
+        //rotate stepper motor 90 degree anticlockwise to close door
+        }
+       
+        while((SW2 == 1) && (SW3 == 1) && (SW4 == 0) && (SW5 == 1))   //first sensor at entry when vehicle comes
+        {  
+        //RC4 =1;   //red led at entry turns on
+       
+          RB0=0; //Green Led for parking spot 1
+          RB1=0; //Green Led for parking spot 2
+          RD5=1; //Green Led for parking spot 3
+          RD6=0; //Green Led for parking spot 4
+            
+         Lcd_Clear();
+         Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("1 SPOT FREE");
+        Lcd_Set_Cursor(2,1);
+        Lcd_Write_String("PARK AT SPOT 3");
+        __delay_ms(300);
+        RD5=0;
+        //rotate stepper motor 90 degree clockwise ... code remaining
+        // RC4=0;  //red turns off when vehicle enters
+        // RC1=1;   //set green led high at parking spot2 to identify spot is full
+         Lcd_Clear();
+        //rotate stepper motor 90 degree anticlockwise to close door
+        }
+       
+        while((SW2 == 1) && (SW3 == 1) && (SW4 == 1) && (SW5 == 0))   //first sensor at entry when vehicle comes
+        {  
+        //RC4 =1;   //red led at entry turns on
+       
+          RB0=0; //Green Led for parking spot 1
+          RB1=0; //Green Led for parking spot 2
+          RD5=0; //Green Led for parking spot 3
+          RD6=1; //Green Led for parking spot 4
+            
+         Lcd_Clear();
+         Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("1 SPOT FREE");
+        Lcd_Set_Cursor(2,1);
+        Lcd_Write_String("PARK AT SPOT 4");
+        __delay_ms(300);
+        RD6=0;
+        //rotate stepper motor 90 degree clockwise ... code remaining
+        // RC4=0;  //red turns off when vehicle enters
+        // RC1=1;   //set green led high at parking spot2 to identify spot is full
+         Lcd_Clear();
+        //rotate stepper motor 90 degree anticlockwise to close door
+        }
+  
+       while((SW2 == 1)&& (SW3 == 1) && (SW4 == 1) && (SW5 == 1))
+       {
+        //RC4 =1;   //red led at entry turns on
+        
+          RB0=0; //Green Led for parking spot 1
+          RB1=0; //Green Led for parking spot 2
+          RD5=0; //Green Led for parking spot 3
+          RD6=0; //Green Led for parking spot 4
+           
+           Lcd_Clear();
+        Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("ALL SPOTS FILLED");
+        Lcd_Set_Cursor(2,1);
+        Lcd_Write_String("SORRY!!!");
+        __delay_ms(300);
+            Lcd_Clear();
+      }
+      }
+        }
+        
+        else
+        {
+         //Lcd_Write_String("Welcome!!!!");
+        // __delay_ms(150);
+        Lcd_Clear();
+        Lcd_Set_Cursor(1,1);
+        Lcd_Write_String("PUBLIC CAR");
+        Lcd_Set_Cursor(2,1);
+        Lcd_Write_String("PARKING");
+        __delay_ms(200);   
+            
+        }       
+         
+        return 0;
+       }
